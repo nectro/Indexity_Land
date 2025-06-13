@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useCallback, useEffect } from "react";
+import React, { useState, useCallback, useEffect, useRef } from "react";
 import { Card, CardContent } from "./ui/card";
 import { Button } from "./ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
@@ -14,6 +14,9 @@ import {
   BarChart3,
   Calendar,
   Zap,
+  Play,
+  Pause,
+  ChevronDown,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Responsive, WidthProvider, Layout } from "react-grid-layout";
@@ -33,6 +36,9 @@ const InteractiveDemoSection = () => {
   const [showChaosDemo, setShowChaosDemo] = useState(false);
   const [showSolution, setShowSolution] = useState(false);
   const [chaosStep, setChaosStep] = useState(0);
+  const [isAutoPlaying, setIsAutoPlaying] = useState(false);
+  const [isPaused, setIsPaused] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
   
   // Default layouts for different breakpoints
   const defaultLayouts = {
@@ -70,21 +76,57 @@ const InteractiveDemoSection = () => {
 
   const [layouts, setLayouts] = useState(defaultLayouts);
 
-  // Chaos demo animation sequence
+  // Auto-start demo when section comes into view
   useEffect(() => {
-    if (showChaosDemo && !showSolution) {
-      const interval = setInterval(() => {
-        setChaosStep((prev) => {
-          if (prev >= 4) {
-            setShowSolution(true);
-            return 0;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && !isAutoPlaying && !isPaused) {
+            setIsAutoPlaying(true);
+            startChaosDemo();
           }
-          return prev + 1;
         });
-      }, 1500);
-      return () => clearInterval(interval);
+      },
+      { threshold: 0.3 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
     }
-  }, [showChaosDemo, showSolution]);
+
+    return () => observer.disconnect();
+  }, [isAutoPlaying, isPaused]);
+
+  // Chaos demo animation sequence with looping
+  useEffect(() => {
+    if (isAutoPlaying && !isPaused) {
+      let chaosInterval: NodeJS.Timeout;
+      let cycleTimeout: NodeJS.Timeout;
+
+      const startCycle = () => {
+        // Start with chaos demo
+        setShowChaosDemo(true);
+        setShowSolution(false);
+        setChaosStep(0);
+
+        // Animate through chaos steps
+        chaosInterval = setInterval(() => {
+          setChaosStep((prev) => {
+            if (prev >= 4) {
+              return 0;
+            }
+            return prev + 1;
+          });
+        }, 1500);
+      };
+
+      startCycle();
+
+      return () => {
+        clearInterval(chaosInterval);
+      };
+    }
+  }, [isAutoPlaying, isPaused]);
 
   const widgets: WidgetData[] = [
     {
@@ -219,10 +261,22 @@ const InteractiveDemoSection = () => {
     setChaosStep(0);
   };
 
+  const toggleAutoPlay = () => {
+    if (isAutoPlaying) {
+      setIsPaused(!isPaused);
+    } else {
+      setIsAutoPlaying(true);
+      setIsPaused(false);
+      // Don't call startChaosDemo here as the useEffect will handle the cycle
+    }
+  };
+
   const resetDemo = () => {
     setShowChaosDemo(false);
     setShowSolution(false);
     setChaosStep(0);
+    setIsAutoPlaying(false);
+    setIsPaused(false);
   };
 
   const filteredWidgets =
@@ -261,34 +315,43 @@ const InteractiveDemoSection = () => {
   return (
     <section
       id="demo"
-      className="py-20 px-4 bg-gradient-to-b from-white to-gray-50"
+      className=" py-20 px-4 bg-gradient-to-b from-white to-gray-50"
+      ref={sectionRef}
     >
       <div className="max-w-7xl mx-auto">
-                  <motion.div
-            className="text-center mb-12"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-          >
-            <h2 className="text-3xl md:text-4xl font-light mb-4 text-gray-900">
-              Experience the Dashboard
-            </h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto mb-8 font-light">
-              See how Letwrk solves the chaos of managing multiple tools and
-              transforms your workflow into a unified, customizable dashboard.
-            </p>
+        <motion.div
+          className="text-center mb-12"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+        >
+          <h2 className="text-3xl md:text-4xl font-light mb-4 text-gray-900">
+            Experience the Dashboard
+          </h2>
+          <p className="text-lg text-gray-600 max-w-2xl mx-auto mb-8 font-light">
+            See how Letwrk solves the chaos of managing multiple tools and
+            transforms your workflow into a unified, customizable dashboard.
+          </p>
 
           {/* Demo Control Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
               <Button
-                onClick={startChaosDemo}
+                onClick={toggleAutoPlay}
                 className="bg-black text-white hover:bg-gray-800 px-6 py-3 font-light border-0"
-                disabled={showChaosDemo}
               >
-                <Zap className="mr-2 h-4 w-4" />
-                Show the Problem
+                {isAutoPlaying && !isPaused ? (
+                  <>
+                    <Pause className="mr-2 h-4 w-4" />
+                    Pause Demo
+                  </>
+                ) : (
+                  <>
+                    <Play className="mr-2 h-4 w-4" />
+                    {isAutoPlaying ? "Resume Demo" : "Start Auto Demo"}
+                  </>
+                )}
               </Button>
             </motion.div>
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
@@ -304,164 +367,191 @@ const InteractiveDemoSection = () => {
           </div>
         </motion.div>
 
-        {/* Chaos Demo Section */}
-        <AnimatePresence>
-          {showChaosDemo && !showSolution && (
-            <motion.div
-              initial={{ opacity: 0, y: 50 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -50 }}
-              className="mb-12"
-            >
-              <Card className="border-red-200 bg-gradient-to-r from-red-50 to-orange-50 p-6">
-                <div className="text-center mb-6">
-                  <h3 className="text-2xl font-bold text-red-800 mb-2">
-                    The Problem: Tab Chaos & Context Switching
-                  </h3>
-                  <p className="text-red-700">
-                    Watch how overwhelming it gets when you need to manage
-                    multiple tools...
-                  </p>
-                </div>
+        {/* Full-Screen Demo Sections */}
+        <div className="mb-12 relative">
+          {/* Chaos Demo Section - Screen-like */}
+          <AnimatePresence mode="wait">
+            {showChaosDemo && (
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.95 }}
+                transition={{ duration: 0.5 }}
+                className="w-full"
+              >
+                <Card className="border-gray-300 bg-gray-50 p-6 min-h-[50vh]">
+                  <div className="text-center mb-6">
+                    <h3 className="text-2xl md:text-3xl font-light text-gray-900 mb-3">
+                      The Problem: Tab Chaos & Context Switching
+                    </h3>
+                    <p className="text-lg text-gray-600 font-light max-w-2xl mx-auto">
+                      Watch how overwhelming it gets when managing multiple tools...
+                    </p>
+                  </div>
 
-                {/* Simulated Browser Tabs */}
-                <div className="bg-gray-100 rounded-t-lg p-2 mb-4">
-                  <div className="flex gap-1 overflow-hidden">
-                    {[
-                      {
-                        name: "Slack",
-                        icon: MessageSquare,
-                        active: chaosStep === 0,
-                      },
-                      {
-                        name: "Jira",
-                        icon: CheckSquare,
-                        active: chaosStep === 1,
-                      },
-                      {
-                        name: "HubSpot",
-                        icon: BarChart3,
-                        active: chaosStep === 2,
-                      },
-                      {
-                        name: "Calendar",
-                        icon: Calendar,
-                        active: chaosStep === 3,
-                      },
-                      {
-                        name: "Email",
-                        icon: MessageSquare,
-                        active: chaosStep === 4,
-                      },
-                      { name: "Analytics", icon: BarChart3, active: false },
-                      { name: "GitHub", icon: CheckSquare, active: false },
-                      { name: "Zoom", icon: MessageSquare, active: false },
-                    ].map((tab, index) => {
-                      const Icon = tab.icon;
-                      return (
+                  {/* Simulated Browser Window - More Screen-like */}
+                  <div className="bg-white rounded-sm border border-gray-300 max-w-4xl mx-auto overflow-hidden">
+                    {/* Browser Header */}
+                    <div className="bg-gray-100 px-4 py-2 border-b border-gray-200 flex items-center gap-2">
+                      <div className="flex gap-1">
+                        <div className="w-3 h-3 rounded-full bg-red-400"></div>
+                        <div className="w-3 h-3 rounded-full bg-yellow-400"></div>
+                        <div className="w-3 h-3 rounded-full bg-green-400"></div>
+                      </div>
+                      <div className="flex-1 bg-white rounded-sm px-3 py-1 mx-4 text-xs text-gray-500 font-light">
+                        https://workspace-chaos.com
+                      </div>
+                    </div>
+
+                    {/* Browser Tabs */}
+                    <div className="bg-gray-100 px-2 py-1 border-b border-gray-200">
+                      <div className="flex gap-1 overflow-hidden">
+                        {[
+                          {
+                            name: "Slack",
+                            icon: MessageSquare,
+                            active: chaosStep === 0,
+                          },
+                          {
+                            name: "Jira",
+                            icon: CheckSquare,
+                            active: chaosStep === 1,
+                          },
+                          {
+                            name: "HubSpot",
+                            icon: BarChart3,
+                            active: chaosStep === 2,
+                          },
+                          {
+                            name: "Calendar",
+                            icon: Calendar,
+                            active: chaosStep === 3,
+                          },
+                          {
+                            name: "Email",
+                            icon: MessageSquare,
+                            active: chaosStep === 4,
+                          },
+                          { name: "Analytics", icon: BarChart3, active: false },
+                          { name: "GitHub", icon: CheckSquare, active: false },
+                          { name: "Notion", icon: MessageSquare, active: false },
+                        ].map((tab, index) => {
+                          const Icon = tab.icon;
+                          return (
+                            <motion.div
+                              key={tab.name}
+                              className={`flex items-center gap-1 px-3 py-1 rounded-t-sm text-xs font-light transition-all ${
+                                tab.active
+                                  ? "bg-white text-gray-900 border-t border-l border-r border-gray-200 z-10"
+                                  : "bg-gray-200 text-gray-600 hover:bg-gray-300"
+                              } ${chaosStep > 0 && !tab.active ? "tab-chaos" : ""}`}
+                              animate={tab.active ? { scale: [1, 1.05, 1] } : {}}
+                              transition={{ duration: 0.3 }}
+                            >
+                              <Icon className="h-3 w-3" />
+                              <span className="hidden sm:inline">{tab.name}</span>
+                              {index > 4 && (
+                                <X className="h-2 w-2 ml-1 opacity-50" />
+                              )}
+                            </motion.div>
+                          );
+                        })}
+                        <div className="text-xs text-gray-500 px-2 py-1 chaos-shake font-light">
+                          +15 more tabs...
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Browser Content - Screen-like */}
+                    <div className="bg-white p-6 h-[300px] relative overflow-hidden">
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <div className="text-center">
+                          <motion.div
+                            className="text-6xl mb-4"
+                            animate={{ rotate: [0, 10, -10, 0] }}
+                            transition={{ duration: 0.5, repeat: Infinity }}
+                          >
+                            😵‍💫
+                          </motion.div>
+                          <p className="text-xl font-light text-gray-900 mb-2">
+                            Switching between {chaosStep + 1} different tools...
+                          </p>
+                          <p className="text-sm text-gray-500 font-light">
+                            Lost context • Missed notifications • Decreased productivity
+                          </p>
+                        </div>
+                      </div>
+
+                      {/* Floating chaos elements */}
+                      {Array.from({ length: 8 }).map((_, i) => (
                         <motion.div
-                          key={tab.name}
-                          className={`flex items-center gap-1 px-3 py-2 rounded-t-md text-xs font-medium transition-all ${
-                            tab.active
-                              ? "bg-white text-blue-600 shadow-md z-10"
-                              : "bg-gray-200 text-gray-600 hover:bg-gray-300"
-                          } ${chaosStep > 0 && !tab.active ? "tab-chaos" : ""}`}
-                          animate={tab.active ? { scale: [1, 1.05, 1] } : {}}
-                          transition={{ duration: 0.3 }}
-                        >
-                          <Icon className="h-3 w-3" />
-                          <span className="hidden sm:inline">{tab.name}</span>
-                          {index > 4 && (
-                            <X className="h-2 w-2 ml-1 opacity-50" />
-                          )}
-                        </motion.div>
-                      );
-                    })}
-                    <div className="text-xs text-gray-500 px-2 py-2 chaos-shake">
-                      +12 more tabs...
+                          key={i}
+                          className="absolute w-6 h-6 bg-gray-300 rounded-full opacity-30"
+                          style={{
+                            left: `${Math.random() * 80 + 10}%`,
+                            top: `${Math.random() * 80 + 10}%`,
+                          }}
+                          animate={{
+                            x: [0, Math.random() * 30 - 15],
+                            y: [0, Math.random() * 30 - 15],
+                            scale: [1, 1.2, 0.8, 1],
+                          }}
+                          transition={{
+                            duration: 2,
+                            repeat: Infinity,
+                            delay: i * 0.15,
+                          }}
+                        />
+                      ))}
                     </div>
                   </div>
-                </div>
+                </Card>
+              </motion.div>
+            )}
+          </AnimatePresence>
 
-                {/* Chaotic Content */}
-                <div className="bg-white rounded-b-lg p-4 min-h-[300px] relative overflow-hidden">
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="text-center">
-                      <motion.div
-                        className="text-6xl mb-4"
-                        animate={{ rotate: [0, 10, -10, 0] }}
-                        transition={{ duration: 0.5, repeat: Infinity }}
-                      >
-                        😵‍💫
-                      </motion.div>
-                      <p className="text-lg font-medium text-gray-700 mb-2">
-                        Constantly switching between {chaosStep + 1} different
-                        tools...
-                      </p>
-                      <p className="text-sm text-gray-500">
-                        Lost context • Missed notifications • Decreased
-                        productivity
-                      </p>
-                    </div>
-                  </div>
+          {/* Solution Demo - Screen-like */}
+          <AnimatePresence mode="wait">
+            <div className="text-center mb-6">
+              <motion.div
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                transition={{ duration: 0.5, delay: 0.2 }}
+                className="text-6xl mb-4"
+              >
+                ✨
+              </motion.div>
+              <h3 className="text-2xl md:text-3xl font-light text-gray-900 mb-3">
+                The Solution: One Unified Dashboard
+              </h3>
+              <p className="text-lg text-gray-600 font-light max-w-2xl mx-auto">
+                All your tools in one place, customizable to your workflow!
+              </p>
+            </div>
+          </AnimatePresence>
 
-                  {/* Floating chaos elements */}
-                  {Array.from({ length: 8 }).map((_, i) => (
-                    <motion.div
-                      key={i}
-                      className="absolute w-8 h-8 bg-red-200 rounded-full opacity-30"
-                      style={{
-                        left: `${Math.random() * 80 + 10}%`,
-                        top: `${Math.random() * 80 + 10}%`,
-                      }}
-                      animate={{
-                        x: [0, Math.random() * 40 - 20],
-                        y: [0, Math.random() * 40 - 20],
-                        scale: [1, 1.2, 0.8, 1],
-                      }}
-                      transition={{
-                        duration: 2,
-                        repeat: Infinity,
-                        delay: i * 0.2,
-                      }}
-                    />
-                  ))}
-                </div>
-              </Card>
-            </motion.div>
-          )}
-        </AnimatePresence>
-
-        {/* Solution Demo */}
-        <AnimatePresence>
-          {showSolution && (
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.8 }}
-              className="mb-12"
+          {/* Floating Down Arrow Button */}
+          <motion.div
+            className="fixed bottom-8 right-8 z-50"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 1 }}
+          >
+            <motion.button
+              onClick={() => {
+                const demoSection = document.querySelector('.interactive-demo-grid');
+                demoSection?.scrollIntoView({ behavior: 'smooth' });
+              }}
+              className="bg-black text-white p-4 rounded-full hover:bg-gray-800 transition-colors border-0 group"
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+              animate={{ y: [0, -8, 0] }}
+              transition={{ duration: 2, repeat: Infinity }}
             >
-              <Card className="border-green-200 bg-gradient-to-r from-green-50 to-blue-50 p-6">
-                <div className="text-center mb-6">
-                  <motion.div
-                    initial={{ scale: 0 }}
-                    animate={{ scale: 1 }}
-                    transition={{ duration: 0.5, delay: 0.2 }}
-                    className="text-6xl mb-4"
-                  >
-                    ✨
-                  </motion.div>
-                  <h3 className="text-2xl font-bold text-green-800 mb-2">
-                    The Solution: One Unified Dashboard
-                  </h3>
-                  <p className="text-green-700">
-                    All your tools in one place, customizable to your workflow!
-                  </p>
-                </div>
-              </Card>
-            </motion.div>
-          )}
-        </AnimatePresence>
+              <ChevronDown className="h-6 w-6 group-hover:animate-bounce" />
+            </motion.button>
+          </motion.div>
+        </div>
 
         <AnimatePresence>
           {showInstructions && (
@@ -471,15 +561,15 @@ const InteractiveDemoSection = () => {
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.3 }}
             >
-              <Card className="mb-6 border-blue-200 bg-gradient-to-r from-blue-50 to-indigo-50">
+              <Card className="mb-6 border-gray-200 bg-gray-50">
                 <CardContent className="p-4 flex items-start justify-between">
                   <div className="flex gap-3">
-                    <Info className="h-5 w-5 text-blue-500 mt-0.5" />
+                    <Info className="h-5 w-5 text-gray-700 mt-0.5" />
                     <div>
-                      <p className="font-medium text-blue-800">
+                      <p className="font-light text-gray-900">
                         Try it yourself!
                       </p>
-                      <p className="text-sm text-blue-700">
+                      <p className="text-sm text-gray-600 font-light">
                         Drag widgets to rearrange them, resize by dragging
                         corners, and use tabs to filter by integration type.
                       </p>
@@ -489,7 +579,7 @@ const InteractiveDemoSection = () => {
                     variant="ghost"
                     size="sm"
                     onClick={() => setShowInstructions(false)}
-                    className="text-blue-700 hover:text-blue-900 hover:bg-blue-100"
+                    className="text-gray-600 hover:text-gray-900 hover:bg-gray-100"
                   >
                     <X className="h-4 w-4" />
                   </Button>
@@ -500,7 +590,7 @@ const InteractiveDemoSection = () => {
         </AnimatePresence>
 
         <motion.div
-          className="bg-white rounded-sm border border-gray-200 overflow-hidden"
+          className="bg-white rounded-sm border border-gray-200 overflow-hidden interactive-demo-grid"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}

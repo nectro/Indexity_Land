@@ -41,7 +41,7 @@ const Header = () => {
           : "mx-0 bg-transparent"
       }`}>
         <div className={`container transition-all duration-500 ${!isScrolled ? "w-full" : "w-fit"} py-4 px-3 md:px-3`}>
-          <div className="flex items-center justify-between gap-8">
+          <div className="flex items-center justify-between gap-20">
             {/* Logo */}
             <motion.div
               className="flex items-center space-x-2 cursor-pointer"
@@ -76,7 +76,7 @@ const Header = () => {
 
             {/* Desktop CTA */}
             <div className="hidden md:flex items-center space-x-4">
-              <Button variant="ghost" className="font-light text-gray-600 hover:text-gray-900 hover:bg-gray-50">
+              <Button variant="ghost" className={`font-light text-gray-600 hover:text-gray-900 hover:bg-gray-50 ${isScrolled ? "hidden" : "text-gray-600"}`}>
                 Sign In
               </Button>
               <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
