@@ -1,0 +1,265 @@
+"use client";
+
+import React from "react";
+import Header from "@/components/Header";
+import HeroSection from "@/components/HeroSection";
+import IntegrationShowcase from "@/components/IntegrationShowcase";
+import InteractiveDemoSection from "@/components/InteractiveDemoSection";
+import { motion } from "framer-motion";
+import { ArrowRight, Users, Code, BarChart3 } from "lucide-react";
+import { Button } from "@/components/ui/button";
+
+export default function Home() {
+  return (
+    <main className="flex min-h-screen flex-col items-center bg-background">
+      {/* Header */}
+      <Header />
+
+      {/* Hero Section */}
+      <HeroSection />
+
+      {/* Integration Showcase */}
+      <section
+        id="integrations"
+        className="w-full py-20 flex justify-center bg-white"
+      >
+        <div className="container px-4 md:px-6">
+          <motion.div
+            className="text-center mb-12"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+          >
+            <h2 className="text-3xl font-light tracking-tight md:text-4xl lg:text-5xl text-gray-900">
+              Seamlessly Integrate Your Favorite Tools
+            </h2>
+            <p className="mt-4 text-xl text-gray-600 font-light">
+              Connect all your essential apps in one unified workspace
+            </p>
+          </motion.div>
+          <IntegrationShowcase />
+        </div>
+      </section>
+
+      {/* Use Cases Section */}
+      <section
+        id="use-cases"
+        className="w-full py-20 flex justify-center bg-gray-50"
+      >
+        <div className="container px-4 md:px-6">
+          <motion.div
+            className="text-center mb-12"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+          >
+            <h2 className="text-3xl font-light tracking-tight md:text-4xl lg:text-5xl text-gray-900">
+              Tailored For Every Team Member
+            </h2>
+            <p className="mt-4 text-xl text-gray-600 font-light">
+              Customize your workspace to match your specific role and workflow
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
+            {/* Manager Use Case */}
+            <motion.div
+              className="rounded-sm border border-gray-200 bg-white hover:border-gray-300 transition-all duration-300 p-6 group"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              viewport={{ once: true }}
+              whileHover={{ y: -5 }}
+            >
+              <div className="flex items-center justify-center h-16 w-16 rounded-sm bg-gray-100 mb-4 group-hover:bg-gray-200 transition-all duration-300">
+                <Users className="h-8 w-8 text-gray-700" />
+              </div>
+              <h3 className="text-xl font-light mb-2 text-gray-900">For Managers</h3>
+              <p className="text-gray-600 mb-4 font-light">
+                Track team performance, monitor project timelines, and stay on
+                top of key metrics all in one view.
+              </p>
+              <div className="flex flex-wrap gap-2">
+                <span className="inline-flex items-center rounded-sm bg-gray-100 px-2 py-1 text-xs font-light text-gray-700 border border-gray-200">
+                  Jira
+                </span>
+                <span className="inline-flex items-center rounded-sm bg-gray-100 px-2 py-1 text-xs font-light text-gray-700 border border-gray-200">
+                  HubSpot
+                </span>
+                <span className="inline-flex items-center rounded-sm bg-gray-100 px-2 py-1 text-xs font-light text-gray-700 border border-gray-200">
+                  Calendar
+                </span>
+              </div>
+            </motion.div>
+
+            {/* Developer Use Case */}
+            <motion.div
+              className="rounded-sm border border-gray-200 bg-white hover:border-gray-300 transition-all duration-300 p-6 group"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              viewport={{ once: true }}
+              whileHover={{ y: -5 }}
+            >
+              <div className="flex items-center justify-center h-16 w-16 rounded-sm bg-gray-100 mb-4 group-hover:bg-gray-200 transition-all duration-300">
+                <Code className="h-8 w-8 text-gray-700" />
+              </div>
+              <h3 className="text-xl font-light mb-2 text-gray-900">For Developers</h3>
+              <p className="text-gray-600 mb-4 font-light">
+                Manage code tasks, track pull requests, and communicate with
+                your team without context switching.
+              </p>
+              <div className="flex flex-wrap gap-2">
+                <span className="inline-flex items-center rounded-sm bg-gray-100 px-2 py-1 text-xs font-light text-gray-700 border border-gray-200">
+                  Jira
+                </span>
+                <span className="inline-flex items-center rounded-sm bg-gray-100 px-2 py-1 text-xs font-light text-gray-700 border border-gray-200">
+                  Slack
+                </span>
+                <span className="inline-flex items-center rounded-sm bg-gray-100 px-2 py-1 text-xs font-light text-gray-700 border border-gray-200">
+                  GitHub
+                </span>
+              </div>
+            </motion.div>
+
+            {/* Marketer Use Case */}
+            <motion.div
+              className="rounded-sm border border-gray-200 bg-white hover:border-gray-300 transition-all duration-300 p-6 group"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              viewport={{ once: true }}
+              whileHover={{ y: -5 }}
+            >
+              <div className="flex items-center justify-center h-16 w-16 rounded-sm bg-gray-100 mb-4 group-hover:bg-gray-200 transition-all duration-300">
+                <BarChart3 className="h-8 w-8 text-gray-700" />
+              </div>
+              <h3 className="text-xl font-light mb-2 text-gray-900">For Marketers</h3>
+              <p className="text-gray-600 mb-4 font-light">
+                Monitor campaign performance, track leads, and collaborate on
+                content all from a single dashboard.
+              </p>
+              <div className="flex flex-wrap gap-2">
+                <span className="inline-flex items-center rounded-sm bg-gray-100 px-2 py-1 text-xs font-light text-gray-700 border border-gray-200">
+                  HubSpot
+                </span>
+                <span className="inline-flex items-center rounded-sm bg-gray-100 px-2 py-1 text-xs font-light text-gray-700 border border-gray-200">
+                  Slack
+                </span>
+                <span className="inline-flex items-center rounded-sm bg-gray-100 px-2 py-1 text-xs font-light text-gray-700 border border-gray-200">
+                  Analytics
+                </span>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* Interactive Demo Section */}
+      <InteractiveDemoSection />
+
+      {/* CTA Section */}
+      <section
+        id="pricing"
+        className="w-full py-20 flex justify-center bg-black text-white relative overflow-hidden"
+      >
+        <div className="container px-4 md:px-6 text-center relative z-10">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+          >
+            <h2 className="text-3xl font-light tracking-tight md:text-4xl lg:text-5xl mb-4">
+              Ready to transform your workflow?
+            </h2>
+            <p className="mt-4 text-xl text-gray-300 max-w-2xl mx-auto mb-8 font-light">
+              Join thousands of teams who have streamlined their productivity
+              with Letwrk's unified workspace.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <Button
+                  size="lg"
+                  className="bg-white text-black hover:bg-gray-100 font-light px-8 py-4 text-lg border-0 transition-all duration-300"
+                >
+                  Get Started Free
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </Button>
+              </motion.div>
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="border border-gray-400 bg-transparent hover:bg-white/10 text-white font-light px-8 py-4 text-lg"
+                >
+                  Schedule a Demo
+                </Button>
+              </motion.div>
+            </div>
+            <p className="text-sm text-gray-400 mt-4 font-light">
+              No credit card required • Setup in 2 minutes • Cancel anytime
+            </p>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="w-full py-12 bg-background border-t">
+        <div className="container px-4 md:px-6">
+          <motion.div
+            className="flex flex-col md:flex-row justify-between items-center"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+          >
+            <div className="flex items-center mb-4 md:mb-0">
+              <div className="h-8 w-8 bg-gradient-to-br from-primary to-blue-500 rounded-lg flex items-center justify-center mr-2">
+                <span className="text-white font-bold text-sm">L</span>
+              </div>
+              <span className="font-bold text-xl">Letwrk.io</span>
+            </div>
+            <div className="flex space-x-6">
+              <a
+                href="#"
+                className="text-muted-foreground hover:text-foreground transition-colors"
+              >
+                About
+              </a>
+              <a
+                href="#integrations"
+                className="text-muted-foreground hover:text-foreground transition-colors"
+              >
+                Features
+              </a>
+              <a
+                href="#pricing"
+                className="text-muted-foreground hover:text-foreground transition-colors"
+              >
+                Pricing
+              </a>
+              <a
+                href="#"
+                className="text-muted-foreground hover:text-foreground transition-colors"
+              >
+                Contact
+              </a>
+            </div>
+            <div className="mt-4 md:mt-0 text-sm text-muted-foreground">
+              © 2024 Letwrk.io. All rights reserved.
+            </div>
+          </motion.div>
+        </div>
+      </footer>
+    </main>
+  );
+}
