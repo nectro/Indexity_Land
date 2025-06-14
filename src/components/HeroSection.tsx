@@ -26,9 +26,9 @@ const HeroSection = () => {
   return (
     <section
       id="hero"
-      className="relative w-full bg-gradient-to-b from-background via-background/95 to-background/80 pt-24 pb-20 md:pt-32 md:pb-32 overflow-hidden"
+      className="relative w-full bg-gradient-to-b from-background via-background/95 to-background/80 pt-24 pb-20 md:pt-44 md:pb-32 overflow-hidden"
     >
-      <div className="container mx-auto px-4 md:px-6">
+      <div className="container mx-auto px-8 md:px-12 lg:px-[100px]">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* Left side - Text content */}
           <motion.div
@@ -38,19 +38,17 @@ const HeroSection = () => {
             transition={{ duration: 0.8, ease: "easeOut" }}
           >
             <motion.h1
-              className="text-4xl md:text-5xl lg:text-6xl font-light tracking-tighter"
+              className="text-3xl md:text-4xl lg:text-5xl font-light tracking-tighter"
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
             >
               Your entire workflow
-              <span className="text-gray-900">
-                {" "}
-                in one place
-              </span>
+              <br />
+              <span className="text-gray-900">in one place</span>
             </motion.h1>
             <motion.p
-              className="text-xl text-gray-600 max-w-[600px] font-light"
+              className="text-lg text-gray-600 max-w-[600px] font-light"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
@@ -59,7 +57,7 @@ const HeroSection = () => {
               No more tab switching, just seamless productivity.
             </motion.p>
             <motion.div
-              className="flex flex-col sm:flex-row gap-4"
+              className="flex flex-col sm:flex-row gap-3"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.6 }}
@@ -69,8 +67,7 @@ const HeroSection = () => {
                 whileTap={{ scale: 0.95 }}
               >
                 <Button
-                  size="lg"
-                  className="font-light bg-black text-white hover:bg-gray-800 border-0"
+                  className="font-light text-sm bg-black text-white hover:bg-gray-800 border-0 px-6 py-3"
                 >
                   Get Started Free
                   <ArrowRight className="ml-2 h-4 w-4" />
@@ -81,9 +78,8 @@ const HeroSection = () => {
                 whileTap={{ scale: 0.95 }}
               >
                 <Button
-                  size="lg"
                   variant="outline"
-                  className="font-light border border-gray-300 text-gray-700 hover:bg-gray-50 hover:text-gray-900"
+                  className="font-light text-sm border border-gray-300 text-gray-700 hover:bg-gray-50 hover:text-gray-900 px-6 py-3"
                 >
                   See How It Works
                 </Button>
@@ -99,7 +95,7 @@ const HeroSection = () => {
                 {[1, 2, 3, 4].map((i) => (
                   <motion.div
                     key={i}
-                    className="h-8 w-8 rounded-full border-2 border-background bg-primary/20 overflow-hidden"
+                    className="h-7 w-7 rounded-full border-2 border-background bg-primary/20 overflow-hidden"
                     initial={{ scale: 0 }}
                     animate={{ scale: 1 }}
                     transition={{ duration: 0.3, delay: 0.8 + i * 0.1 }}

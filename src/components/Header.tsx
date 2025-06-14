@@ -4,6 +4,8 @@ import React, { useEffect, useState } from "react";
 import { Button } from "./ui/button";
 import { ArrowRight, Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
+import logo from "@/assets/logo.svg";
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -48,14 +50,14 @@ const Header = () => {
               whileHover={{ scale: 1.05 }}
               onClick={() => scrollToSection("hero")}
             >
-              <div className="h-8 w-8 bg-black rounded-sm flex items-center justify-center">
-                <span className="text-white font-light text-sm">L</span>
+              <div className="h-7 w-7 rounded-sm flex items-center justify-center">
+                <Image  src={logo} alt="Letwrk" width={18} height={18} />
               </div>
-              <span className="font-light text-xl text-gray-900">Letwrk</span>
+              <span className="font-light text-xl text-gray-900">Let<b>Wrk</b>.io</span>
             </motion.div>
 
             {/* Desktop Navigation */}
-            <nav className="hidden md:flex items-center space-x-8">
+            <nav className="hidden md:flex items-center space-x-6">
               {[
                 { label: "Features", id: "integrations" },
                 { label: "Demo", id: "demo" },
@@ -65,7 +67,7 @@ const Header = () => {
                 <motion.button
                   key={item.id}
                   onClick={() => scrollToSection(item.id)}
-                  className="text-gray-600 hover:text-gray-900 transition-colors duration-200 font-light"
+                  className="text-sm text-gray-600 hover:text-gray-900 transition-colors duration-200 font-light"
                   whileHover={{ y: -2 }}
                   whileTap={{ y: 0 }}
                 >
@@ -75,14 +77,14 @@ const Header = () => {
             </nav>
 
             {/* Desktop CTA */}
-            <div className="hidden md:flex items-center space-x-4">
-              <Button variant="ghost" className={`font-light text-gray-600 hover:text-gray-900 hover:bg-gray-50 ${isScrolled ? "hidden" : "text-gray-600"}`}>
+            <div className="hidden md:flex items-center space-x-3">
+              <Button variant="ghost" className={`font-light text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-50 ${isScrolled ? "hidden" : "text-gray-600"}`}>
                 Sign In
               </Button>
               <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                <Button className="font-light bg-black text-white hover:bg-gray-800 border-0">
+                <Button className="font-light text-sm bg-black text-white hover:bg-gray-800 border-0 px-4 py-2">
                   Get Started
-                  <ArrowRight className="ml-2 h-4 w-4" />
+                  <ArrowRight className="ml-2 h-3 w-3" />
                 </Button>
               </motion.div>
             </div>
@@ -120,18 +122,18 @@ const Header = () => {
                     <button
                       key={item.id}
                       onClick={() => scrollToSection(item.id)}
-                      className="text-left text-gray-600 hover:text-gray-900 transition-colors duration-200 font-light py-2"
+                      className="text-left text-sm text-gray-600 hover:text-gray-900 transition-colors duration-200 font-light py-2"
                     >
                       {item.label}
                     </button>
                   ))}
                   <div className="flex flex-col space-y-2 pt-4">
-                    <Button variant="ghost" className="justify-start font-light text-gray-600 hover:text-gray-900 hover:bg-gray-50">
+                    <Button variant="ghost" className="justify-start font-light text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-50">
                       Sign In
                     </Button>
-                    <Button className="justify-start font-light bg-black text-white hover:bg-gray-800 border-0">
+                    <Button className="justify-start font-light text-sm bg-black text-white hover:bg-gray-800 border-0">
                       Get Started
-                      <ArrowRight className="ml-2 h-4 w-4" />
+                      <ArrowRight className="ml-2 h-3 w-3" />
                     </Button>
                   </div>
                 </nav>

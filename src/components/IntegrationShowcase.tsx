@@ -45,7 +45,7 @@ const IntegrationCard = ({
                     className="w-10 h-10 object-contain"
                   />
                 </div>
-                <h3 className="text-lg font-light text-center text-gray-900">
+                <h3 className="text-base font-light text-center text-gray-900">
                   {integration.name}
                 </h3>
               </CardContent>
@@ -158,7 +158,7 @@ const IntegrationShowcase = () => {
             And many more integrations available to customize your workspace
           </p>
           <motion.button
-            className="bg-black text-white px-8 py-3 rounded-sm font-light hover:bg-gray-800 transition-all duration-300 border-0"
+            className="bg-black text-white px-6 py-2 rounded-sm text-sm font-light hover:bg-gray-800 transition-all duration-300 border-0"
             whileHover={{ scale: 1.05, y: -2 }}
             whileTap={{ scale: 0.95 }}
           >
