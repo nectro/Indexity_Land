@@ -94,7 +94,7 @@ const Header = () => {
               </Button>
               <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                 <Button className="font-light text-sm bg-black text-white hover:bg-gray-800 border-0 px-4 py-2">
-                  Get Started
+                  Get Early Access
                   <ArrowRight className="ml-2 h-3 w-3" />
                 </Button>
               </motion.div>
@@ -143,7 +143,7 @@ const Header = () => {
                       Sign In
                     </Button>
                     <Button className="justify-start font-light text-sm bg-black text-white hover:bg-gray-800 border-0">
-                      Get Started
+                      Get Early Access
                       <ArrowRight className="ml-2 h-3 w-3" />
                     </Button>
                   </div>

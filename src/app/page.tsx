@@ -8,6 +8,8 @@ import InteractiveDemoSection from "@/components/InteractiveDemoSection";
 import { motion } from "framer-motion";
 import { ArrowRight, Users, Code, BarChart3 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import Image from "next/image";
+import logo from "@/assets/logo.svg";
 
 export default function Home() {
   return (
@@ -187,7 +189,7 @@ export default function Home() {
                 <Button
                   className="bg-white text-black hover:bg-gray-100 font-light px-6 py-3 text-base border-0 transition-all duration-300"
                 >
-                  Get Started Free
+                  Get Early Access
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
               </motion.div>
@@ -221,10 +223,10 @@ export default function Home() {
             viewport={{ once: true }}
           >
             <div className="flex items-center mb-4 md:mb-0">
-              <div className="h-7 w-7 bg-gradient-to-br from-primary to-blue-500 rounded-lg flex items-center justify-center mr-2">
-                <span className="text-white font-bold text-xs">L</span>
+              <div className="h-7 w-7 rounded-sm flex items-center justify-center mr-2">
+                <Image src={logo} alt="Letwrk" width={18} height={18} />
               </div>
-              <span className="font-bold text-lg">Letwrk.io</span>
+              <span className="font-light text-xl">Let<b>Wrk</b>.io</span>
             </div>
             <div className="flex space-x-6">
               <a

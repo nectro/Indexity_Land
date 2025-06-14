@@ -69,7 +69,7 @@ const HeroSection = () => {
                 <Button
                   className="font-light text-sm bg-black text-white hover:bg-gray-800 border-0 px-6 py-3"
                 >
-                  Get Started Free
+                  Get Early Access
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
               </motion.div>
@@ -80,6 +80,14 @@ const HeroSection = () => {
                 <Button
                   variant="outline"
                   className="font-light text-sm border border-gray-300 text-gray-700 hover:bg-gray-50 hover:text-gray-900 px-6 py-3"
+                  onClick={() => {
+                    const dashboardSection = document.querySelector('#demo h2');
+                    if (dashboardSection) {
+                      const yOffset = -150; // 100px *below* actual position = -100 (negative offset moves up)
+                      const y = dashboardSection.getBoundingClientRect().top + window.pageYOffset + yOffset;
+                      window.scrollTo({ top: y, behavior: 'smooth' });
+                    }
+                  }}
                 >
                   See How It Works
                 </Button>

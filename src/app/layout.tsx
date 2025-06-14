@@ -7,8 +7,8 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Tempo - Modern SaaS Starter",
-  description: "A modern full-stack starter template powered by Next.js",
+  title: "LetWrk - Your Entire Workflow in One Place",
+  description: "LetWrk brings all your tools together in a customizable dashboard. No more tab switching, just seamless productivity.",
 };
 
 export default function RootLayout({
