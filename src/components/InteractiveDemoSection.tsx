@@ -496,7 +496,7 @@ const InteractiveDemoSection = () => {
                 transition={{ duration: 0.5 }}
                 className="w-full"
               >
-                <Card className="border-gray-300 bg-gray-50 p-6 min-h-[50vh]">
+                <Card className="border-gray-300 bg-gray-50 p-6">
                   <div className="text-center mb-6">
                     <h3 className="text-2xl md:text-3xl font-light text-gray-900 mb-3">
                       The Problem: Tab Chaos & Context Switching

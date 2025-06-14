@@ -33,16 +33,27 @@ const Header = () => {
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-start duration-500 ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-out ${
         isScrolled ? "py-3" : "py-4"
       }`}
     >
-      <div className={`${
-        isScrolled 
-          ? "mx-auto w-[90%] md:w-[900px] bg-white/90 backdrop-blur-md border border-gray-200 rounded-xl" 
-          : "mx-0 bg-transparent"
-      }`}>
-        <div className={`container transition-all duration-500 ${!isScrolled ? "w-full" : "w-fit"} py-4 px-3 md:px-3`}>
+      <motion.div 
+        className={`transition-all ease-out ${
+          isScrolled 
+            ? "w-[90%] md:w-[900px] bg-white/40 backdrop-blur-md rounded-xl" 
+            : "w-full bg-transparent"
+        } ${isScrolled ? "duration-300" : "duration-0"}`}
+        style={{
+          border: isScrolled ? "1px solid rgb(229, 231, 235)" : "1px solid transparent",
+          marginLeft: "auto",
+          marginRight: "auto",
+        }}
+        animate={{
+          width: isScrolled ? (typeof window !== 'undefined' && window.innerWidth >= 768 ? "900px" : "90%") : "100%",
+        }}
+        transition={{ duration: 0.3, ease: "easeOut" }}
+      >
+        <div className="container mx-auto transition-all duration-300 ease-out py-4 px-3 md:px-3">
           <div className="flex items-center justify-between gap-20">
             {/* Logo */}
             <motion.div
@@ -141,7 +152,7 @@ const Header = () => {
             )}
           </AnimatePresence>
         </div>
-      </div>
+      </motion.div>
     </motion.header>
   );
 };

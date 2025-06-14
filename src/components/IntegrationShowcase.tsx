@@ -78,7 +78,7 @@ const IntegrationShowcase = () => {
     },
     {
       name: "HubSpot",
-      logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/hubspot/hubspot-original.svg",
+      logo: "https://cdn4.iconfinder.com/data/icons/logos-and-brands/512/168_Hubspot_logo_logos-512.png",
       description:
         "Monitor your sales pipeline, track leads, and manage customer relationships all in one place.",
       color: "#FF7A59",
