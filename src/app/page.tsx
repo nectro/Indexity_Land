@@ -255,7 +255,7 @@ export default function Home() {
               </a>
             </div>
             <div className="mt-4 md:mt-0 text-sm text-muted-foreground">
-              © 2024 Letwrk.io. All rights reserved.
+              © {new Date().getFullYear()} Letwrk.io. All rights reserved.
             </div>
           </motion.div>
         </div>
