@@ -28,6 +28,18 @@ const HeroSection = () => {
       id="hero"
       className="relative w-full bg-gradient-to-b from-background via-background/95 to-background/80 pt-24 pb-20 md:pt-44 md:pb-32 overflow-hidden"
     >
+      {/* Fade-in dotted background */}
+      <motion.div
+        className="absolute inset-0 w-full h-full pointer-events-none"
+        style={{
+          backgroundImage: `radial-gradient(circle, rgba(0, 0, 0, 0.1) 1.5px, transparent 1.5px)`,
+          backgroundSize: '30px 30px',
+          backgroundPosition: '0 0, 20px 20px'
+        }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 2, ease: "easeOut" }}
+      />
       <div className="container mx-auto px-8 md:px-12 lg:px-[100px]">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* Left side - Text content */}
