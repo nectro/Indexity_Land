@@ -12,7 +12,11 @@ import {
 import { Card } from "./ui/card";
 import { motion } from "framer-motion";
 
-const HeroSection = () => {
+interface HeroSectionProps {
+  onJoinWaitlist?: () => void;
+}
+
+const HeroSection: React.FC<HeroSectionProps> = ({ onJoinWaitlist }) => {
   const [animationStep, setAnimationStep] = useState(0);
 
   // Simple animation cycle for dashboard widgets
@@ -79,9 +83,10 @@ const HeroSection = () => {
                 whileTap={{ scale: 0.95 }}
               >
                 <Button
+                  onClick={onJoinWaitlist}
                   className="font-light text-sm bg-black text-white hover:bg-gray-800 border-0 px-6 py-3"
                 >
-                  Get Early Access
+                  Join Waitlist
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
               </motion.div>
@@ -93,11 +98,25 @@ const HeroSection = () => {
                   variant="outline"
                   className="font-light text-sm border border-gray-300 text-gray-700 hover:bg-gray-50 hover:text-gray-900 px-6 py-3"
                   onClick={() => {
-                    const dashboardSection = document.querySelector('#demo h2');
-                    if (dashboardSection) {
-                      const yOffset = -150; // 100px *below* actual position = -100 (negative offset moves up)
-                      const y = dashboardSection.getBoundingClientRect().top + window.pageYOffset + yOffset;
-                      window.scrollTo({ top: y, behavior: 'smooth' });
+                    // Check if we're on mobile
+                    const isMobile = window.innerWidth < 768;
+                    
+                    if (isMobile) {
+                      // On mobile, scroll to the dashboard view in the hero section
+                      const dashboardView = document.getElementById('dashboard-view');
+                      if (dashboardView) {
+                        const yOffset = -100; // Adjust offset for mobile
+                        const y = dashboardView.getBoundingClientRect().top + window.pageYOffset + yOffset;
+                        window.scrollTo({ top: y, behavior: 'smooth' });
+                      }
+                    } else {
+                      // On desktop, scroll to the demo section
+                      const dashboardSection = document.querySelector('#demo h2');
+                      if (dashboardSection) {
+                        const yOffset = -150;
+                        const y = dashboardSection.getBoundingClientRect().top + window.pageYOffset + yOffset;
+                        window.scrollTo({ top: y, behavior: 'smooth' });
+                      }
                     }
                   }}
                 >
@@ -129,14 +148,14 @@ const HeroSection = () => {
                 ))}
               </div>
               <p className="text-sm text-gray-600 font-light">
-                <span className="font-normal text-gray-900">1,000+</span> teams already using
-                Letwrk
+                <span className="font-normal text-gray-900">Launching soon</span> for select teams
               </p>
             </motion.div>
           </motion.div>
 
           {/* Right side - Dashboard visualization */}
           <motion.div
+            id="dashboard-view"
             className="relative bg-white/90 backdrop-blur-md rounded-sm border border-gray-200 p-4 lg:p-6"
             initial={{ opacity: 0, x: 50, rotateY: 15 }}
             animate={{ opacity: 1, x: 0, rotateY: 0 }}

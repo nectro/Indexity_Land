@@ -42,7 +42,7 @@ const IntegrationCard = ({
                   <img
                     src={integration.logo}
                     alt={integration.name}
-                    className="w-10 h-10 object-contain"
+                    className="w-10 h-10 object-contain rounded-lg"
                   />
                 </div>
                 <h3 className="text-base font-light text-center text-gray-900">
@@ -98,25 +98,25 @@ const IntegrationShowcase = () => {
       color: "#24292E",
     },
     {
-      name: "Notion",
-      logo: "https://upload.wikimedia.org/wikipedia/commons/4/45/Notion_app_logo.png",
+      name: "ClickUp",
+      logo: "https://e7.pngegg.com/pngimages/221/620/png-clipart-clickup-logo-thumbnail-tech-companies-thumbnail.png",
       description:
-        "Access your notes, documents, and knowledge base directly from your dashboard.",
-      color: "#000000",
+        "Manage tasks, projects, and team collaboration with ClickUp's all-in-one workspace.",
+      color: "#7B68EE",
     },
     {
-      name: "Trello",
-      logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/trello/trello-plain.svg",
+      name: "Canny",
+      logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQaX9vrG6AArX1vJJJ3jIBzVxsh-gBCoKoaA0DrHjyYQKQqq6D-HIcSfMFZK560HevR1Vs&usqp=CAU",
       description:
-        "Visualize your tasks and projects with Trello boards integrated into your workspace.",
-      color: "#0079BF",
+        "Collect and prioritize user feedback to build better products with Canny integration.",
+      color: "#5A67D8",
     },
     {
-      name: "Figma",
-      logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg",
+      name: "Zendesk",
+      logo: "https://w7.pngwing.com/pngs/687/230/png-transparent-zendesk-logos-brands-icon-thumbnail.png",
       description:
-        "Access design files and collaborate with designers without switching contexts.",
-      color: "#F24E1E",
+        "Manage customer support tickets and provide excellent customer service seamlessly.",
+      color: "#03363D",
     },
   ];
 
@@ -155,15 +155,15 @@ const IntegrationShowcase = () => {
           viewport={{ once: true }}
         >
           <p className="text-gray-600 mb-6 font-light">
-            And many more integrations available to customize your workspace
+            We're not stopping here — loads of cool integrations and handcrafted in-house tools are on the way!
           </p>
-          <motion.button
+          {/* <motion.button
             className="bg-black text-white px-6 py-2 rounded-sm text-sm font-light hover:bg-gray-800 transition-all duration-300 border-0"
             whileHover={{ scale: 1.05, y: -2 }}
             whileTap={{ scale: 0.95 }}
           >
             Explore All Integrations
-          </motion.button>
+          </motion.button> */}
         </motion.div>
     </div>
   );

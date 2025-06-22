@@ -48,7 +48,11 @@ interface UseCase {
   };
 }
 
-const InteractiveDemoSection = () => {
+interface InteractiveDemoSectionProps {
+  onJoinWaitlist?: () => void;
+}
+
+const InteractiveDemoSection: React.FC<InteractiveDemoSectionProps> = ({ onJoinWaitlist }) => {
   const [showInstructions, setShowInstructions] = useState(true);
   const [activeTab, setActiveTab] = useState("all");
   const [selectedUseCase, setSelectedUseCase] = useState("manager");
@@ -855,14 +859,15 @@ const InteractiveDemoSection = () => {
         >
           <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
             <Button
+              onClick={onJoinWaitlist}
               size="lg"
               className="bg-black text-white hover:bg-gray-800 px-12 py-4 text-lg font-light border-0 transition-all duration-300"
             >
-              Try Letwrk For Free
+              Join Waitlist
             </Button>
           </motion.div>
           <p className="text-sm text-gray-500 mt-3 font-light">
-            No credit card required • Setup in 2 minutes
+            Coming soon • Early access available
           </p>
         </motion.div>
       </div>
