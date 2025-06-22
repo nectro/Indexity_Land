@@ -167,7 +167,9 @@ export default function Home() {
       </section>
 
       {/* Interactive Demo Section */}
-      <InteractiveDemoSection onJoinWaitlist={handleJoinWaitlist} />
+      <div className="hidden md:block">
+        <InteractiveDemoSection onJoinWaitlist={handleJoinWaitlist} />
+      </div>
 
       {/* CTA Section */}
       <section

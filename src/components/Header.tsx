@@ -49,15 +49,15 @@ const Header = () => {
           className={`transition-all ease-out ${
             isScrolled 
               ? "w-[90%] md:w-[900px] bg-white/40 backdrop-blur-md rounded-xl" 
-              : "w-full bg-transparent"
+              : "w-[90%] md:w-full bg-white/40 md:bg-transparent backdrop-blur-md md:backdrop-blur-none rounded-xl md:rounded-none"
           } ${isScrolled ? "duration-300" : "duration-0"}`}
           style={{
-            border: isScrolled ? "1px solid rgb(229, 231, 235)" : "1px solid transparent",
+            border: isScrolled ? "1px solid rgb(229, 231, 235)" : (typeof window !== 'undefined' && window.innerWidth < 768 ? "1px solid rgb(229, 231, 235)" : "1px solid transparent"),
             marginLeft: "auto",
             marginRight: "auto",
           }}
           animate={{
-            width: isScrolled ? (typeof window !== 'undefined' && window.innerWidth >= 768 ? "900px" : "90%") : "100%",
+            width: isScrolled ? (typeof window !== 'undefined' && window.innerWidth >= 768 ? "900px" : "90%") : (typeof window !== 'undefined' && window.innerWidth >= 768 ? "100%" : "90%"),
           }}
           transition={{ duration: 0.3, ease: "easeOut" }}
         >
@@ -134,7 +134,6 @@ const Header = () => {
                   <nav className="flex flex-col space-y-4 pt-4">
                     {[
                       { label: "Features", id: "integrations" },
-                      { label: "Demo", id: "demo" },
                       { label: "Use Cases", id: "use-cases" },
                       { label: "Pricing", id: "pricing" },
                     ].map((item) => (
