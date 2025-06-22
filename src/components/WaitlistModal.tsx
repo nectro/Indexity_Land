@@ -132,15 +132,15 @@ const WaitlistModal: React.FC<WaitlistModalProps> = ({ isOpen, onClose }) => {
                 stiffness: 300,
                 duration: 0.5 
               }}
-              className="bg-white max-w-4xl w-full max-h-[90vh] overflow-hidden relative rounded-lg"
+              className="bg-white max-w-4xl w-full max-h-[90vh] relative rounded-lg overflow-hidden"
               onClick={(e) => e.stopPropagation()}
               style={{
                 boxShadow: '0 50px 100px -20px rgba(0, 0, 0, 0.5)',
               }}
             >
-              <div className="grid grid-cols-1 lg:grid-cols-2 min-h-[600px]">
-                {/* Left Side - Brand/Content */}
-                <div className="bg-black text-white p-12 flex flex-col justify-between relative overflow-hidden">
+              <div className="grid grid-cols-1 lg:grid-cols-2 h-full max-h-[90vh]">
+                {/* Left Side - Brand/Content - Hidden on mobile */}
+                <div className="hidden lg:flex bg-black text-white p-12 flex-col justify-between relative overflow-hidden">
                   {/* Background Pattern */}
                   <div 
                     className="absolute inset-0 opacity-5"
@@ -211,7 +211,7 @@ const WaitlistModal: React.FC<WaitlistModalProps> = ({ isOpen, onClose }) => {
                 </div>
 
                 {/* Right Side - Form */}
-                <div className="bg-white p-12 overflow-y-auto">
+                <div className="bg-white p-6 lg:p-12 overflow-y-auto col-span-1 lg:col-span-1 max-h-[90vh]">
                   <motion.button
                     onClick={onClose}
                     className="absolute top-6 right-6 text-black/60 hover:text-black transition-colors z-10"
@@ -226,14 +226,42 @@ const WaitlistModal: React.FC<WaitlistModalProps> = ({ isOpen, onClose }) => {
                       initial={{ opacity: 0, x: 20 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: 0.3 }}
-                      className="h-full flex flex-col"
+                      className="flex flex-col min-h-0"
                     >
+                      {/* Mobile Header with Branding */}
                       <div className="mb-8">
-                        <h2 className="text-2xl font-light text-black mb-2">Get Started</h2>
+                        <div className="lg:hidden mb-6">
+                          <motion.div
+                            className="flex items-center gap-3 mb-4"
+                            initial={{ opacity: 0, y: 10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.1 }}
+                          >
+                            <div className="w-10 h-10 bg-black rounded-sm flex items-center justify-center">
+                              <Image src={Logo} alt="Letwrk" className="w-6 h-6" />
+                            </div>
+                            <span className="font-light text-xl text-gray-900">Let<b>Wrk</b>.io</span>
+                          </motion.div>
+                          <div className="bg-gray-50 rounded-sm p-4 mb-4">
+                            <div className="flex items-center gap-2 mb-3">
+                              <div className="w-4 h-4 bg-green-300 rounded-full flex items-center justify-center">
+                                <Check className="h-2.5 w-2.5 text-black" />
+                              </div>
+                              <span className="text-sm text-gray-700 font-light">Free 1-Month Pilot – All Features Unlocked</span>
+                            </div>
+                            <div className="flex items-center gap-2">
+                              <div className="w-4 h-4 bg-green-300 rounded-full flex items-center justify-center">
+                                <Check className="h-2.5 w-2.5 text-black" />
+                              </div>
+                              <span className="text-sm text-gray-700 font-light">Priority customer support</span>
+                            </div>
+                          </div>
+                        </div>
+                        <h2 className="text-2xl font-light text-black mb-2">Join the Waitlist</h2>
                         <p className="text-gray-600 font-light">Fill in your details to secure your spot</p>
                       </div>
 
-                      <div className="flex-1 space-y-6">
+                      <div className="space-y-6 flex-shrink-0">
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                           <motion.div
                             initial={{ opacity: 0, y: 10 }}
@@ -340,7 +368,7 @@ const WaitlistModal: React.FC<WaitlistModalProps> = ({ isOpen, onClose }) => {
                                 required
                               >
                                 <SelectTrigger className="pl-8 py-3 border-gray-300 focus:border-black focus:ring-0 bg-white font-light text-black rounded-md shadow-none">
-                                  <SelectValue placeholder="Select your role" />
+                                  <SelectValue placeholder="Select" />
                                 </SelectTrigger>
                                 <SelectContent>
                                   {designationOptions.map((option) => (
@@ -380,7 +408,7 @@ const WaitlistModal: React.FC<WaitlistModalProps> = ({ isOpen, onClose }) => {
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 1.0 }}
-                        className="mt-8"
+                        className="mt-8 flex-shrink-0"
                       >
                         <Button
                           type="submit"
