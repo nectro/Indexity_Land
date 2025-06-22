@@ -1,10 +1,11 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import Header from "@/components/Header";
 import HeroSection from "@/components/HeroSection";
 import IntegrationShowcase from "@/components/IntegrationShowcase";
 import InteractiveDemoSection from "@/components/InteractiveDemoSection";
+import WaitlistModal from "@/components/WaitlistModal";
 import { motion } from "framer-motion";
 import { ArrowRight, Users, Code, BarChart3 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -12,13 +13,19 @@ import Image from "next/image";
 import logo from "@/assets/logo.svg";
 
 export default function Home() {
+  const [isWaitlistModalOpen, setIsWaitlistModalOpen] = useState(false);
+
+  const handleJoinWaitlist = () => {
+    setIsWaitlistModalOpen(true);
+  };
+
   return (
     <main className="flex min-h-screen flex-col items-center bg-background">
       {/* Header */}
       <Header />
 
       {/* Hero Section */}
-      <HeroSection />
+      <HeroSection onJoinWaitlist={handleJoinWaitlist} />
 
       {/* Integration Showcase */}
       <section
@@ -160,7 +167,7 @@ export default function Home() {
       </section>
 
       {/* Interactive Demo Section */}
-      <InteractiveDemoSection />
+      <InteractiveDemoSection onJoinWaitlist={handleJoinWaitlist} />
 
       {/* CTA Section */}
       <section
@@ -181,27 +188,17 @@ export default function Home() {
               Join thousands of teams who have streamlined their productivity
               with Letwrk's unified workspace.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex justify-center">
               <motion.div
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
                 <Button
+                  onClick={handleJoinWaitlist}
                   className="bg-white text-black hover:bg-gray-100 font-light px-6 py-3 text-base border-0 transition-all duration-300"
                 >
-                  Get Early Access
+                  Join Waitlist
                   <ArrowRight className="ml-2 h-4 w-4" />
-                </Button>
-              </motion.div>
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <Button
-                  variant="outline"
-                  className="border border-gray-400 bg-transparent hover:bg-white/10 text-white font-light px-6 py-3 text-base"
-                >
-                  Schedule a Demo
                 </Button>
               </motion.div>
             </div>
@@ -260,6 +257,12 @@ export default function Home() {
           </motion.div>
         </div>
       </footer>
+
+      {/* Waitlist Modal */}
+      <WaitlistModal 
+        isOpen={isWaitlistModalOpen} 
+        onClose={() => setIsWaitlistModalOpen(false)} 
+      />
     </main>
   );
 }

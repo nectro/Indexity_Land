@@ -12,7 +12,11 @@ import {
 import { Card } from "./ui/card";
 import { motion } from "framer-motion";
 
-const HeroSection = () => {
+interface HeroSectionProps {
+  onJoinWaitlist?: () => void;
+}
+
+const HeroSection: React.FC<HeroSectionProps> = ({ onJoinWaitlist }) => {
   const [animationStep, setAnimationStep] = useState(0);
 
   // Simple animation cycle for dashboard widgets
@@ -79,9 +83,10 @@ const HeroSection = () => {
                 whileTap={{ scale: 0.95 }}
               >
                 <Button
+                  onClick={onJoinWaitlist}
                   className="font-light text-sm bg-black text-white hover:bg-gray-800 border-0 px-6 py-3"
                 >
-                  Get Early Access
+                  Join Waitlist
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
               </motion.div>
