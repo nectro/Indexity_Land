@@ -56,25 +56,57 @@ const WaitlistModal: React.FC<WaitlistModalProps> = ({ isOpen, onClose }) => {
     e.preventDefault();
     setIsSubmitting(true);
     
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 2000));
-    
-    setIsSubmitting(false);
-    setIsSubmitted(true);
-    
-    // Close modal after 3 seconds
-    setTimeout(() => {
-      setIsSubmitted(false);
-      setFormData({
-        name: "",
-        phone: "",
-        workEmail: "",
-        companyName: "",
-        designation: "",
-        companyWebsite: "",
+    try {
+      // Replace this URL with your Google Apps Script Web App URL
+      const GOOGLE_SCRIPT_URL = process.env.NEXT_PUBLIC_GOOGLE_SCRIPT_URL || '';
+      
+      if (!GOOGLE_SCRIPT_URL) {
+        console.error('Google Script URL not configured');
+        throw new Error('Configuration error');
+      }
+
+      // Create form data to avoid CORS preflight request
+      const formDataToSend = new FormData();
+      formDataToSend.append('timestamp', new Date().toISOString());
+      formDataToSend.append('name', formData.name);
+      formDataToSend.append('workEmail', formData.workEmail);
+      formDataToSend.append('phone', formData.phone || '');
+      formDataToSend.append('companyName', formData.companyName);
+      formDataToSend.append('designation', formData.designation);
+      formDataToSend.append('companyWebsite', formData.companyWebsite || '');
+
+      const response = await fetch(GOOGLE_SCRIPT_URL, {
+        method: 'POST',
+        body: formDataToSend,
       });
-      onClose();
-    }, 3000);
+
+      if (!response.ok) {
+        throw new Error('Failed to submit form');
+      }
+
+      setIsSubmitted(true);
+      
+      // Close modal after 5 seconds if submission was successful
+      setTimeout(() => {
+        setIsSubmitted(false);
+        setFormData({
+          name: "",
+          phone: "",
+          workEmail: "",
+          companyName: "",
+          designation: "",
+          companyWebsite: "",
+        });
+        onClose();
+      }, 5000);
+      
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      // You might want to show an error message to the user here
+      alert('There was an error submitting your form. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -392,11 +424,11 @@ const WaitlistModal: React.FC<WaitlistModalProps> = ({ isOpen, onClose }) => {
                       >
                         <Check className="h-10 w-10 text-white" />
                       </motion.div>
-                      <h3 className="text-2xl font-light text-black mb-4">
-                        Welcome to the waitlist!
+                      <h3 className="text-2xl font-light text-black mb-4 text-center">
+                        Thanks for signing up! Exciting stuff ahead!
                       </h3>
-                      <p className="text-gray-600 font-light text-lg max-w-md">
-                        You're all set! We'll notify you as soon as Letwrk launches.
+                      <p className="text-gray-600 font-light text-lg max-w-md text-center">
+                        You're all set! We'll notify you as soon as Letwrk launches!
                       </p>
                     </motion.div>
                   )}
