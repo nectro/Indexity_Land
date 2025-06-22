@@ -5,6 +5,7 @@ import Header from "@/components/Header";
 import HeroSection from "@/components/HeroSection";
 import IntegrationShowcase from "@/components/IntegrationShowcase";
 import InteractiveDemoSection from "@/components/InteractiveDemoSection";
+import PricingSection from "@/components/PricingSection";
 import WaitlistModal from "@/components/WaitlistModal";
 import { motion } from "framer-motion";
 import { ArrowRight, Users, Code, BarChart3 } from "lucide-react";
@@ -171,11 +172,11 @@ export default function Home() {
         <InteractiveDemoSection onJoinWaitlist={handleJoinWaitlist} />
       </div>
 
+      {/* Pricing Section */}
+      <PricingSection onJoinWaitlist={handleJoinWaitlist} />
+
       {/* CTA Section */}
-      <section
-        id="pricing"
-        className="w-full py-20 flex justify-center bg-black text-white relative overflow-hidden"
-      >
+      <section className="w-full py-20 flex justify-center bg-black text-white relative overflow-hidden">
         <div className="container px-4 md:px-6 text-center relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
