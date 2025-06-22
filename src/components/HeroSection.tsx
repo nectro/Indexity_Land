@@ -98,11 +98,25 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onJoinWaitlist }) => {
                   variant="outline"
                   className="font-light text-sm border border-gray-300 text-gray-700 hover:bg-gray-50 hover:text-gray-900 px-6 py-3"
                   onClick={() => {
-                    const dashboardSection = document.querySelector('#demo h2');
-                    if (dashboardSection) {
-                      const yOffset = -150; // 100px *below* actual position = -100 (negative offset moves up)
-                      const y = dashboardSection.getBoundingClientRect().top + window.pageYOffset + yOffset;
-                      window.scrollTo({ top: y, behavior: 'smooth' });
+                    // Check if we're on mobile
+                    const isMobile = window.innerWidth < 768;
+                    
+                    if (isMobile) {
+                      // On mobile, scroll to the dashboard view in the hero section
+                      const dashboardView = document.getElementById('dashboard-view');
+                      if (dashboardView) {
+                        const yOffset = -100; // Adjust offset for mobile
+                        const y = dashboardView.getBoundingClientRect().top + window.pageYOffset + yOffset;
+                        window.scrollTo({ top: y, behavior: 'smooth' });
+                      }
+                    } else {
+                      // On desktop, scroll to the demo section
+                      const dashboardSection = document.querySelector('#demo h2');
+                      if (dashboardSection) {
+                        const yOffset = -150;
+                        const y = dashboardSection.getBoundingClientRect().top + window.pageYOffset + yOffset;
+                        window.scrollTo({ top: y, behavior: 'smooth' });
+                      }
                     }
                   }}
                 >
@@ -141,6 +155,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onJoinWaitlist }) => {
 
           {/* Right side - Dashboard visualization */}
           <motion.div
+            id="dashboard-view"
             className="relative bg-white/90 backdrop-blur-md rounded-sm border border-gray-200 p-4 lg:p-6"
             initial={{ opacity: 0, x: 50, rotateY: 15 }}
             animate={{ opacity: 1, x: 0, rotateY: 0 }}

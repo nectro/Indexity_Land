@@ -11,7 +11,7 @@ interface PricingSectionProps {
 
 const PricingSection: React.FC<PricingSectionProps> = ({ onJoinWaitlist }) => {
   return (
-    <section className="w-full py-20 flex justify-center bg-gray-50 relative overflow-hidden">
+    <section id="pricing" className="w-full py-20 flex justify-center bg-gray-50 relative overflow-hidden">
       {/* Background Pattern */}
       <div 
         className="absolute inset-0 opacity-[0.02]"
@@ -57,12 +57,12 @@ const PricingSection: React.FC<PricingSectionProps> = ({ onJoinWaitlist }) => {
               className="relative bg-white rounded-sm border border-gray-200 p-8 hover:border-gray-300 transition-colors duration-200 group flex flex-col h-full"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.1 }}
+              transition={{ duration: 0.2, ease: "easeOut" }}
               viewport={{ once: true }}
               whileHover={{ 
                 y: -5,
                 boxShadow: "0 10px 25px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)",
-                transition: { duration: 0.2, ease: [0.25, 0.46, 0.45, 0.94] }
+                transition: { duration: 0.2 }
               }}
               style={{ willChange: "transform" }}
             >
@@ -84,27 +84,36 @@ const PricingSection: React.FC<PricingSectionProps> = ({ onJoinWaitlist }) => {
                 <p className="text-xs text-gray-500 mt-1 font-light">Pricing to be disclosed</p>
               </div>
               
-              <div className="space-y-3 mb-8 flex-grow">
-                {[
-                  "Basic workspace",
-                  "4 integrations",
-                  "Email support",
-                  "Basic analytics overview"
-                ].map((feature, index) => (
-                  <motion.div
-                    key={feature}
-                    className="flex items-center gap-3"
-                    initial={{ opacity: 0, x: -10 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.4, delay: 0.3 + index * 0.1 }}
-                    viewport={{ once: true }}
-                  >
-                    <div className="w-4 h-4 rounded-full bg-gray-200 flex items-center justify-center">
-                      <div className="w-2 h-2 rounded-full bg-gray-600"></div>
-                    </div>
-                    <span className="text-sm text-gray-600 font-light">{feature}</span>
-                  </motion.div>
-                ))}
+              <div className="space-y-3 mb-8 flex-grow relative">
+                <div className="blur-sm select-none pointer-events-none">
+                  {[
+                    "Basic workspace",
+                    "4 integrations",
+                    "Email support",
+                    "Basic analytics overview"
+                  ].map((feature, index) => (
+                    <motion.div
+                      key={feature}
+                      className="flex items-center gap-3 mb-3"
+                      initial={{ opacity: 0, x: -10 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.4, delay: 0.3 + index * 0.1 }}
+                      viewport={{ once: true }}
+                    >
+                      <div className="w-4 h-4 rounded-full bg-gray-200 flex items-center justify-center">
+                        <div className="w-2 h-2 rounded-full bg-gray-600"></div>
+                      </div>
+                      <span className="text-sm text-gray-600 font-light">{feature}</span>
+                    </motion.div>
+                  ))}
+                </div>
+                
+                {/* Overlay message */}
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="bg-white/90 backdrop-blur-sm border border-gray-200 rounded-sm px-3 py-2 text-center">
+                    <p className="text-xs text-gray-600 font-medium">To be revealed soon</p>
+                  </div>
+                </div>
               </div>
               
               <div className="mt-auto">
@@ -123,12 +132,12 @@ const PricingSection: React.FC<PricingSectionProps> = ({ onJoinWaitlist }) => {
               className="relative bg-black text-white rounded-sm p-8 shadow-xl transition-shadow duration-200 flex flex-col h-full"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
+              transition={{ duration: 0.2, ease: "easeOut" }}
               viewport={{ once: true }}
               whileHover={{ 
                 y: -5,
-                boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.25)",
-                transition: { duration: 0.2, ease: [0.25, 0.46, 0.45, 0.94] }
+                boxShadow: "0 10px 25px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)",
+                transition: { duration: 0.2 }
               }}
               style={{ willChange: "transform" }}
             >
@@ -150,28 +159,37 @@ const PricingSection: React.FC<PricingSectionProps> = ({ onJoinWaitlist }) => {
                 <p className="text-xs text-white/50 mt-1 font-light">Pricing to be disclosed</p>
               </div>
               
-              <div className="space-y-3 mb-8 flex-grow">
-                {[
-                  "All Starter features",
-                  "Advanced integrations",
-                  "Custom workflows",
-                  "Priority support",
-                  "Team collaboration"
-                ].map((feature, index) => (
-                  <motion.div
-                    key={feature}
-                    className="flex items-center gap-3"
-                    initial={{ opacity: 0, x: -10 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.4, delay: 0.4 + index * 0.1 }}
-                    viewport={{ once: true }}
-                  >
-                    <div className="w-4 h-4 rounded-full bg-white/20 flex items-center justify-center">
-                      <div className="w-2 h-2 rounded-full bg-white"></div>
-                    </div>
-                    <span className="text-sm text-white/90 font-light">{feature}</span>
-                  </motion.div>
-                ))}
+              <div className="space-y-3 mb-8 flex-grow relative">
+                <div className="blur-sm select-none pointer-events-none">
+                  {[
+                    "All Starter features",
+                    "Advanced integrations",
+                    "Custom workflows",
+                    "Priority support",
+                    "Team collaboration"
+                  ].map((feature, index) => (
+                    <motion.div
+                      key={feature}
+                      className="flex items-center gap-3 mb-3"
+                      initial={{ opacity: 0, x: -10 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.4, delay: 0.4 + index * 0.1 }}
+                      viewport={{ once: true }}
+                    >
+                      <div className="w-4 h-4 rounded-full bg-white/20 flex items-center justify-center">
+                        <div className="w-2 h-2 rounded-full bg-white"></div>
+                      </div>
+                      <span className="text-sm text-white/90 font-light">{feature}</span>
+                    </motion.div>
+                  ))}
+                </div>
+                
+                {/* Overlay message */}
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="bg-black/80 backdrop-blur-sm border border-white/20 rounded-sm px-3 py-2 text-center">
+                    <p className="text-xs text-white/90 font-medium">To be revealed soon</p>
+                  </div>
+                </div>
               </div>
               
               <div className="mt-auto">
