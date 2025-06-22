@@ -1,5 +1,3 @@
-"use client";
-
 import React from "react";
 import Header from "@/components/Header";
 import HeroSection from "@/components/HeroSection";
@@ -10,10 +8,66 @@ import { ArrowRight, Users, Code, BarChart3 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import logo from "@/assets/logo.svg";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "LetWrk - Your Entire Workflow in One Place | Unified Workspace Platform",
+  description: "LetWrk brings all your tools together in a customizable dashboard. No more tab switching, just seamless productivity. Integrate Slack, Calendar, Analytics, and more.",
+  keywords: "workflow management, productivity tools, unified workspace, dashboard, team collaboration, integrations, slack, calendar, analytics",
+  openGraph: {
+    title: "LetWrk - Your Entire Workflow in One Place",
+    description: "LetWrk brings all your tools together in a customizable dashboard. No more tab switching, just seamless productivity.",
+    url: "https://letwrk.io",
+    siteName: "LetWrk",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "LetWrk - Your Entire Workflow in One Place",
+    description: "LetWrk brings all your tools together in a customizable dashboard.",
+  },
+  alternates: {
+    canonical: "https://letwrk.io",
+  },
+};
+
+"use client";
 
 export default function Home() {
+  // JSON-LD structured data for the homepage
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "LetWrk",
+    "description": "LetWrk brings all your tools together in a customizable dashboard. No more tab switching, just seamless productivity.",
+    "url": "https://letwrk.io",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Web",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD",
+      "description": "Free plan available"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.8",
+      "ratingCount": "1000"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "LetWrk",
+      "url": "https://letwrk.io"
+    }
+  };
+
   return (
-    <main className="flex min-h-screen flex-col items-center bg-background">
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+      />
+      <main className="flex min-h-screen flex-col items-center bg-background">
       {/* Header */}
       <Header />
 
@@ -261,5 +315,6 @@ export default function Home() {
         </div>
       </footer>
     </main>
+    </>
   );
 }

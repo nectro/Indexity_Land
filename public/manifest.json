@@ -1,0 +1,19 @@
+{
+  "name": "LetWrk - Your Entire Workflow in One Place",
+  "short_name": "LetWrk",
+  "description": "LetWrk brings all your tools together in a customizable dashboard. No more tab switching, just seamless productivity.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#000000",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "16x16 32x32",
+      "type": "image/x-icon"
+    }
+  ],
+  "categories": ["productivity", "business", "utilities"],
+  "lang": "en-US"
+} 
