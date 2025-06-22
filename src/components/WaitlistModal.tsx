@@ -232,13 +232,13 @@ const WaitlistModal: React.FC<WaitlistModalProps> = ({ isOpen, onClose }) => {
                       <div className="mb-8">
                         <div className="lg:hidden mb-6">
                           <motion.div
-                            className="flex items-center gap-3 mb-4"
+                            className="flex items-center gap-1 mb-4"
                             initial={{ opacity: 0, y: 10 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.1 }}
                           >
-                            <div className="w-10 h-10 bg-black rounded-sm flex items-center justify-center">
-                              <Image src={Logo} alt="Letwrk" className="w-6 h-6" />
+                            <div className="w-10 h-10 bg-transparent rounded-sm flex items-center justify-center">
+                              <Image src={Logo} alt="Letwrk" className="w-5 h-5" />
                             </div>
                             <span className="font-light text-xl text-gray-900">Let<b>Wrk</b>.io</span>
                           </motion.div>
