@@ -134,8 +134,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onJoinWaitlist }) => {
                 ))}
               </div>
               <p className="text-sm text-gray-600 font-light">
-                <span className="font-normal text-gray-900">1,000+</span> teams already using
-                Letwrk
+                <span className="font-normal text-gray-900">Launching soon</span> for select teams
               </p>
             </motion.div>
           </motion.div>

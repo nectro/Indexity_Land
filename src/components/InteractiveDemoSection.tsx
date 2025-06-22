@@ -867,7 +867,7 @@ const InteractiveDemoSection: React.FC<InteractiveDemoSectionProps> = ({ onJoinW
             </Button>
           </motion.div>
           <p className="text-sm text-gray-500 mt-3 font-light">
-            No credit card required • Setup in 2 minutes
+            Coming soon • Early access available
           </p>
         </motion.div>
       </div>

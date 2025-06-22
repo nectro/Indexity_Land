@@ -182,11 +182,11 @@ export default function Home() {
             viewport={{ once: true }}
           >
             <h2 className="text-2xl font-light tracking-tight md:text-3xl lg:text-4xl mb-4">
-              Ready to transform your workflow?
+              Ready to revolutionize productivity?
             </h2>
             <p className="mt-4 text-lg text-gray-300 max-w-2xl mx-auto mb-8 !font-light">
-              Join thousands of teams who have streamlined their productivity
-              with Letwrk's unified workspace.
+              Be among the first to experience the next generation of productivity
+              tools with Letwrk's unified workspace.
             </p>
             <div className="flex justify-center">
               <motion.div
@@ -203,7 +203,7 @@ export default function Home() {
               </motion.div>
             </div>
             <p className="text-sm text-gray-400 mt-4 font-light">
-              No credit card required • Setup in 2 minutes • Cancel anytime
+              Coming soon • Be the first to know • Free early access
             </p>
           </motion.div>
         </div>
